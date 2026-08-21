@@ -1,0 +1,5 @@
+sesh-bin
+snipaste
+ticktick
+helium-browser-bin
+burpsuite

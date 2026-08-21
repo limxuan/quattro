@@ -1,0 +1,4 @@
+[Keyd Virtual Keyboard]
+MatchUdevType=keyboard
+MatchBus=usb
+AttrKeyboardIntegration=internal
