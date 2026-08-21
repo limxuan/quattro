@@ -13,7 +13,6 @@ btop
 lazygit
 jq
 gnome-boxes
-ttf-jetbrains-mono-nerd
 tailscale
 wtype
 make
