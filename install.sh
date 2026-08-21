@@ -36,7 +36,18 @@ sudo cp "$DOTFILES_DIR/etc/libinput/local-overrides.quirks" /etc/libinput/local-
 sudo systemctl enable --now keyd.service
 sudo systemctl restart keyd.service || true
 
-# 4. Install ble.sh (bash syntax highlighting and autosuggestions)
+# 4. Install Sesh terminal assistant
+if ! command -v sesh &>/dev/null; then
+    echo "[+] Installing Sesh binary..."
+    mkdir -p "$HOME/.local/bin"
+    LATEST_SESH_URL=$(curl -s https://api.github.com/repos/joshmedeski/sesh/releases/latest | grep "browser_download_url" | grep "Linux_x86_64.tar.gz" | head -n 1 | cut -d '"' -f 4)
+    curl -L -s -o /tmp/sesh.tar.gz "${LATEST_SESH_URL}"
+    tar -xzf /tmp/sesh.tar.gz -C "$HOME/.local/bin" sesh
+    chmod +x "$HOME/.local/bin/sesh"
+    rm -f /tmp/sesh.tar.gz
+fi
+
+# 5. Install ble.sh (bash syntax highlighting and autosuggestions)
 if [ ! -f "$HOME/.local/share/blesh/ble.sh" ]; then
     echo "[4/6] Installing ble.sh for Bash..."
     rm -rf /tmp/blesh

@@ -78,6 +78,7 @@ o.bind("SUPER + SHIFT + X", "X", "omarchy-launch-webapp \"https://x.com/\"")
 o.bind("SUPER + SHIFT + ALT + X", "X Post", "omarchy-launch-webapp \"https://x.com/compose/post\"")
 
 -- System & Utilities
+o.bind("ALT + SPACE", "Launch apps", "omarchy-menu toggle")
 o.bind("SUPER + G", "Power Mode", "omarchy-menu power")
 o.bind("SUPER + O", "Pop window out", "omarchy-hyprland-window-pop")
 o.bind("SUPER + P", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
@@ -115,8 +116,7 @@ o.bind("CTRL + ALT + SHIFT + S", "Screenshot", "omarchy-capture-screenshot smart
 o.bind("PRINT", "Screenshot Editor", "~/.config/scripts/edit-clipboard-with-satty.sh")
 o.bind("CTRL + ALT + SHIFT + D", "Paste Smart", "~/.config/scripts/paste-clipboard.sh")
 o.bind("CTRL + ALT + SHIFT + F", "Fullscreen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
-o.bind("CTRL + ALT + SHIFT + SPACE", "Clipboard Manager", "omarchy-launch-walker -m clipboard")
-o.bind("CTRL + ALT + SHIFT + SUPER + SPACE", "Restart Walker", "omarchy-restart-walker")
+o.bind("CTRL + ALT + SHIFT + SPACE", "Clipboard Manager", "omarchy-shell shell toggle omarchy.clipboard")
 o.bind("CTRL + ALT + SHIFT + T", "Toggle floating", hl.dsp.window.float({ action = "toggle" }))
 o.bind("CTRL + ALT + SHIFT + G", "Toggle window grouping", hl.dsp.group.toggle())
 o.bind("CTRL + ALT + SHIFT + B", "Toggle Trackpad", "~/.config/scripts/toggle-trackpad.sh")
