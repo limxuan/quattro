@@ -100,4 +100,12 @@ if [ -f /usr/share/applications/helium.desktop ]; then
     update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
 fi
 
+# Set Helium as the default browser and webapp handler
+if command -v xdg-settings &>/dev/null; then
+    xdg-settings set default-web-browser helium.desktop 2>/dev/null || true
+    xdg-mime default helium.desktop x-scheme-handler/http 2>/dev/null || true
+    xdg-mime default helium.desktop x-scheme-handler/https 2>/dev/null || true
+    xdg-mime default helium.desktop text/html 2>/dev/null || true
+fi
+
 echo "[+] Helium setup completed!"
