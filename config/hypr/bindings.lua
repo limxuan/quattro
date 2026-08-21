@@ -115,7 +115,7 @@ o.bind("SHIFT + ALT + R", "Move window to scratchpad", hl.dsp.window.move({ work
 o.bind("CTRL + ALT + SHIFT + S", "Screenshot", "omarchy-capture-screenshot smart copy")
 o.bind("PRINT", "Screenshot Editor", "~/.config/scripts/edit-clipboard-with-satty.sh")
 o.bind("CTRL + ALT + SHIFT + D", "Paste Smart", "~/.config/scripts/paste-clipboard.sh")
-o.bind("CTRL + ALT + SHIFT + F", "Fullscreen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+o.bind("CTRL + ALT + SHIFT + F", "Fullscreen (keep bar)", hl.dsp.window.fullscreen({ mode = "maximized" }))
 o.bind("CTRL + ALT + SHIFT + SPACE", "Clipboard Manager", "omarchy-shell shell toggle omarchy.clipboard")
 o.bind("CTRL + ALT + SHIFT + T", "Toggle floating", hl.dsp.window.float({ action = "toggle" }))
 o.bind("CTRL + ALT + SHIFT + G", "Toggle window grouping", hl.dsp.group.toggle())
