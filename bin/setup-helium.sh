@@ -39,28 +39,6 @@ for ext_id in "${!EXTENSIONS[@]}"; do
     echo "    ${ext_name} v${version} installed"
 done
 
-# Suppress first-run/install welcome tabs in unpacked extensions
-echo "[+] Suppressing extension first-run welcome tabs..."
-python3 << 'EOF'
-import glob, os
-
-# Dark Reader welcome tab suppression
-for bg in glob.glob(os.path.expanduser('~/.config/net.imput.helium/unpacked-extensions/eimadpbcbfnmbkopoojfekhnkhdbieeh/*/background/index.js')):
-    with open(bg, 'r', encoding='utf-8') as f:
-        c = f.read()
-    c = c.replace('if (reason === "install") {', 'if (false) {')
-    with open(bg, 'w', encoding='utf-8') as f:
-        f.write(c)
-
-# SponsorBlock help tab suppression
-for bg in glob.glob(os.path.expanduser('~/.config/net.imput.helium/unpacked-extensions/mnjggcdmjocbbbhaepdhchncahnbgone/*/js/background.js')):
-    with open(bg, 'r', encoding='utf-8') as f:
-        c = f.read()
-    c = c.replace('chrome.tabs.create({url:chrome.runtime.getURL("/help/index.html")});', '/* noop */;')
-    with open(bg, 'w', encoding='utf-8') as f:
-        f.write(c)
-EOF
-
 # Configure Helium preferences
 echo "[+] Configuring Helium preferences..."
 mkdir -p "${HELIUM_CONFIG}/Default"
