@@ -73,22 +73,28 @@ echo "[+] Creating Helium wrapper at ~/.local/bin/helium-browser..."
 mkdir -p "$HOME/.local/bin"
 cat > "$HOME/.local/bin/helium-browser" << 'WRAPPEREOF'
 #!/usr/bin/env bash
-# Helium Browser wrapper - loads unpacked extensions
+# Helium Browser wrapper - registers unpacked extensions on first run, then launches clean
 
-EXT_PATHS=()
-for ext_id in mnjggcdmjocbbbhaepdhchncahnbgone hfjbmagddngcpeloejdejnfgbamkjaeg eimadpbcbfnmbkopoojfekhnkhdbieeh gcknhkkoolaabfmlnjonogaaifnjlfnp nngceckbapebfimnlniiiahkandclblb fipfgiejfpcdacpjepkohdlnjonchnal; do
-    ext_path=$(find "$HOME/.config/net.imput.helium/unpacked-extensions/${ext_id}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | head -n 1)
-    if [ -n "${ext_path}" ]; then
-        EXT_PATHS+=("${ext_path}")
+INIT_MARKER="$HOME/.config/net.imput.helium/.extensions_initialized"
+
+if [ ! -f "$INIT_MARKER" ]; then
+    EXT_PATHS=()
+    for ext_id in mnjggcdmjocbbbhaepdhchncahnbgone hfjbmagddngcpeloejdejnfgbamkjaeg eimadpbcbfnmbkopoojfekhnkhdbieeh gcknhkkoolaabfmlnjonogaaifnjlfnp nngceckbapebfimnlniiiahkandclblb fipfgiejfpcdacpjepkohdlnjonchnal; do
+        ext_path=$(find "$HOME/.config/net.imput.helium/unpacked-extensions/${ext_id}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | head -n 1)
+        if [ -n "${ext_path}" ]; then
+            EXT_PATHS+=("${ext_path}")
+        fi
+    done
+
+    if [ ${#EXT_PATHS[@]} -gt 0 ]; then
+        EXT_LIST=$(IFS=,; echo "${EXT_PATHS[*]}")
+        mkdir -p "$(dirname "$INIT_MARKER")"
+        touch "$INIT_MARKER"
+        exec /opt/helium-browser-bin/chrome --force-dark-mode --enable-features=WebUIDarkMode --load-extension="${EXT_LIST}" "$@"
     fi
-done
-
-if [ ${#EXT_PATHS[@]} -gt 0 ]; then
-    EXT_LIST=$(IFS=,; echo "${EXT_PATHS[*]}")
-    exec /opt/helium-browser-bin/chrome --force-dark-mode --enable-features=WebUIDarkMode --load-extension="${EXT_LIST}" "$@"
-else
-    exec /opt/helium-browser-bin/chrome --force-dark-mode --enable-features=WebUIDarkMode "$@"
 fi
+
+exec /opt/helium-browser-bin/chrome --force-dark-mode --enable-features=WebUIDarkMode "$@"
 WRAPPEREOF
 chmod +x "$HOME/.local/bin/helium-browser"
 
