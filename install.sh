@@ -25,7 +25,7 @@ fi
 
 if [ -f "$DOTFILES_DIR/packages/aur.txt" ]; then
     echo "[+] Installing AUR packages..."
-    yay -S --needed --noconfirm - < "$DOTFILES_DIR/packages/aur.txt"
+    yay -S --needed --noconfirm --answerclean None --answerdiff None - < "$DOTFILES_DIR/packages/aur.txt" || true
 fi
 
 # 3. Setup Keyd and libinput quirks
