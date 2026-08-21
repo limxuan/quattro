@@ -8,6 +8,16 @@ for workspace = 1, 10 do
 end
 
 -- Unbind defaults that we are overriding
+hl.unbind("SUPER + RETURN")
+hl.unbind("SUPER + ALT + RETURN")
+hl.unbind("SUPER + SHIFT + RETURN")
+hl.unbind("SUPER + SHIFT + F")
+hl.unbind("SUPER + ALT + SHIFT + F")
+hl.unbind("SUPER + SHIFT + B")
+hl.unbind("SUPER + SHIFT + ALT + B")
+hl.unbind("SUPER + SHIFT + N")
+hl.unbind("SUPER + SHIFT + K")
+hl.unbind("SUPER + SHIFT + I")
 hl.unbind("SUPER + F")
 hl.unbind("SUPER + T")
 hl.unbind("SUPER + B")
