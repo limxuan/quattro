@@ -7,11 +7,17 @@ Clean, declarative, and reproducible Arch Linux dotfiles built around **Omarchy 
 ## ⚡ Quick Start
 
 ### Fresh System Install
-```bash
-git clone git@github.com:limxuan/quattro.git ~/dotfiles
-cd ~/dotfiles
-bash install.sh
-```
+
+1. **Initialize Bitwarden SSH Agent**:
+   Ensure Bitwarden is running with SSH agent support enabled (`Settings` → `SSH Agent`).
+
+2. **Clone & Bootstrap**:
+   ```bash
+   SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock" git clone git@github.com:limxuan/quattro.git ~/dotfiles
+   cd ~/dotfiles
+   bash install.sh
+   ```
+
 `install.sh` automatically installs Pacman/AUR packages, configures Keyd and libinput hardware quirks, sets up `ble.sh`/`tpm`/`sesh`, deploys webapps, and links all configurations.
 
 ### Sync Existing Configs
