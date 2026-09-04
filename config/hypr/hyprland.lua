@@ -35,17 +35,8 @@ o.window("float-window", {
   size = "800 600",
 })
 
-o.window({ class = "^(Snipaste)$", title = "^(Snipper - Snipaste)$" }, {
-  stay_focused = true,
-  pin = true,
-})
-
-o.window({ class = "^(Snipaste)$", title = "^(Snipaste)$" }, {
-  stay_focused = true,
-  pin = true,
-})
-
-o.window({ class = "^(Snipaste)$", title = "^(Paster - Snipaste)$" }, {
-  pin = false,
-  stay_focused = false,
+o.window("float-paste", {
+  float = true,
+  center = true,
+  size = "750 550",
 })
