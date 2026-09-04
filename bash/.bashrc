@@ -1,3 +1,25 @@
+# Omarchy environment (OMARCHY_PATH + PATH), needed even for non-interactive shells
+[[ -r /usr/share/omarchy/default/bash/env-bootstrap ]] && source /usr/share/omarchy/default/bash/env-bootstrap
+
+# If not running interactively, don't do anything else (leave this above the rc source)
+[[ $- != *i* ]] && return
+
+# Initialize ble.sh early (required for proper integration with starship and fzf)
+if [[ -f ~/.local/share/blesh/ble.sh ]]; then
+    source ~/.local/share/blesh/ble.sh --noattach
+fi
+
+# All the default Omarchy aliases and functions
+# (don't mess with these directly, just overwrite them here!)
+source "$OMARCHY_PATH/default/bash/rc"
+
+# Environment Variables
+export EDITOR=nvim
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
+
+# PATH
+[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
+
 # Aliases
 alias ls="eza -l -g --icons"
 alias lst="eza -g --icons --tree --level=2 -a"
@@ -5,25 +27,7 @@ alias t="tmux"
 alias tks="tmux kill-server"
 alias trs=tmux_reset
 
-# Environment Variables
-export EDITOR=nvim
-export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
-
-# Tool init
-eval "$(zoxide init bash)"
-if command -v starship &>/dev/null; then
-    eval "$(starship init bash)"
-fi
-if command -v mise &>/dev/null; then
-    eval "$(mise activate bash)"
-fi
-
-[[ -f /usr/share/doc/fzf/examples/key-bindings.bash ]] && source /usr/share/doc/fzf/examples/key-bindings.bash
-[[ -f /usr/share/fzf/key-bindings.bash ]] && source /usr/share/fzf/key-bindings.bash
-
-# PATH
-[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
-
+# Keybindings
 # Ctrl+G: edit current command line in nvim (no auto-execute)
 __edit_command_line() {
     echo "$READLINE_LINE" > /tmp/bash_cmd_edit
@@ -85,8 +89,5 @@ tmux_reset() {
     echo "Tmux reset complete: now in session '$folder_name', focused on the first window."
 }
 
-# Syntax highlighting and autosuggestions (like fish)
-if [[ -f ~/.local/share/blesh/ble.sh ]]; then
-    source ~/.local/share/blesh/ble.sh --noattach
-    ble-attach
-fi
+# Attach ble.sh at the very end
+[[ ${BLE_VERSION-} ]] && ble-attach

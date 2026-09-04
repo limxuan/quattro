@@ -35,7 +35,7 @@ Safely symlinks all dotfiles to `~/.config/` and creates timestamped `.bak` copi
 - **Neovim**: Blazing fast configuration bootstrapped with `lazy.nvim`, `oil.nvim` (file manager), `telescope.nvim` (fuzzy find files & text), and `kanagawa.nvim`.
 - **Tmux + Sesh**: Smart workspace-based session management (`open_ws`, `trs` reset), Vi copy mode, and `sesh` fuzzy session switcher.
 - **AI Voice Dictation**: Hands-free voice-to-text powered by Groq Cloud (`whisper-large-v3`) via `Caps + E`.
-- **Desktop & Web Apps**: Declarative webapp installer (`bin/apps.sh`), automatic Helium browser unpacked extension loader, and Bitwarden integration.
+- **Desktop & Web Apps**: Declarative webapp installer (`bin/apps.sh`), automatic Chromium extension policy manager, and Bitwarden integration.
 
 ---
 
@@ -82,7 +82,7 @@ Safely symlinks all dotfiles to `~/.config/` and creates timestamped `.bak` copi
 
 ```
 ├── bash/               # .bashrc and shell integration
-├── bin/                # App declarations and Helium/desktop setup scripts
+├── bin/                # App declarations and Chromium/desktop setup scripts
 ├── config/
 │   ├── fontconfig/     # Font rendering configurations
 │   ├── hypr/           # Hyprland Lua configs and layout toggles

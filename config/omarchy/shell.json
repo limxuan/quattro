@@ -5,8 +5,8 @@
     "lock": 300
   },
   "bar": {
-    "position": "left",
-    "transparent": false,
+    "position": "top",
+    "transparent": true,
     "centerAnchor": "omarchy.clock",
     "layout": {
       "left": [

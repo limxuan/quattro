@@ -1,21 +1,53 @@
 #!/usr/bin/env bash
 
-# Target the desktop workspace
-TARGET_WS=7
+# Move all windows in current workspace to an unused workspace and back,
+# ensuring the windows and workspace are on the correct/active monitor.
 
-# Get current workspace ID
-ORIGINAL_WS=$(hyprctl activeworkspace -j | jq -r '.id')
+move_window() {
+  local target_ws="$1"
+  local addr="$2"
+  hyprctl dispatch "hl.dsp.window.move({ workspace = '$target_ws', window = 'address:$addr', follow = false })" >/dev/null 2>&1 || \
+  hyprctl dispatch movetoworkspacesilent "$target_ws,address:$addr" >/dev/null 2>&1
+}
+
+move_workspace() {
+  local ws="$1"
+  local monitor="$2"
+  [ -z "$monitor" ] && return
+  hyprctl dispatch "hl.dsp.workspace.move({ workspace = '$ws', monitor = '$monitor' })" >/dev/null 2>&1 || \
+  hyprctl dispatch moveworkspacetomonitor "$ws $monitor" >/dev/null 2>&1
+}
+
+get_unused_workspace() {
+  local used candidate=99
+  used=$(hyprctl workspaces -j 2>/dev/null | jq -r '.[].id' 2>/dev/null || true)
+  while grep -qx -- "$candidate" <<< "$used"; do
+    candidate=$((candidate + 1))
+  done
+  echo "$candidate"
+}
+
+# Get current active workspace
+ORIGINAL_WS=$(hyprctl activeworkspace -j 2>/dev/null | jq -r '.name // .id')
+[ -z "$ORIGINAL_WS" ] || [ "$ORIGINAL_WS" = "null" ] && exit 0
+
+TARGET_MONITOR=$(hyprctl monitors -j 2>/dev/null | jq -r '.[] | select(.focused == true) | .name' 2>/dev/null)
 
 # Collect window addresses from current workspace
-WINDOWS=$(hyprctl clients -j | jq -r \
-  ".[] | select(.workspace.id == $ORIGINAL_WS) | .address")
+WINDOWS=$(hyprctl clients -j 2>/dev/null | jq -r \
+  ".[] | select((.workspace.name == \"$ORIGINAL_WS\" or (.workspace.id | tostring) == \"$ORIGINAL_WS\") and .mapped == true) | .address")
 
 # If no windows, exit quietly
 [ -z "$WINDOWS" ] && exit 0
 
-# Move all windows to workspace 7
+TARGET_WS=$(get_unused_workspace)
+
+# Move workspace to target monitor if needed
+[ -n "$TARGET_MONITOR" ] && move_workspace "$ORIGINAL_WS" "$TARGET_MONITOR"
+
+# Move all windows to unused workspace
 for addr in $WINDOWS; do
-  hyprctl dispatch movetoworkspace "$TARGET_WS,address:$addr"
+  move_window "$TARGET_WS" "$addr"
 done
 
 # Small delay to let Hyprland process moves
@@ -23,5 +55,5 @@ sleep 0.05
 
 # Move them all back to the original workspace
 for addr in $WINDOWS; do
-  hyprctl dispatch movetoworkspace "$ORIGINAL_WS,address:$addr"
+  move_window "$ORIGINAL_WS" "$addr"
 done

@@ -1,3 +1,4 @@
+chromium
 bitwarden
 keyd
 stow
@@ -17,3 +18,5 @@ tailscale
 wtype
 make
 gcc
+wl-clipboard
+satty

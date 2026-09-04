@@ -70,9 +70,9 @@ bash "$DOTFILES_DIR/sync.sh"
 echo "[6/6] Setting up desktop entries and web apps..."
 bash "$DOTFILES_DIR/bin/setup-desktop-entries.sh"
 
-# Setup Helium browser if present
-if command -v helium-browser-bin &>/dev/null || [ -f /opt/helium-browser-bin/chrome ]; then
-    bash "$DOTFILES_DIR/bin/setup-helium.sh"
+# Setup Chromium browser extensions and defaults
+if [ -f "$DOTFILES_DIR/bin/setup-chromium.sh" ]; then
+    bash "$DOTFILES_DIR/bin/setup-chromium.sh"
 fi
 
 # Validate compositor
