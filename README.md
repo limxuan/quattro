@@ -71,11 +71,11 @@ Safely symlinks all dotfiles to `~/.config/` and creates timestamped `.bak` copi
 | `Super + Return` | Launch Terminal (Kitty) |
 | `Super + Alt + Return` | Open / Attach Work tmux session |
 | `Super + Space` | Toggle layout (scrolling ↔ dwindle) |
+| `Super + C / V / X` | Universal Copy / Paste / Cut |
 | `Alt + Space` | Open application launcher menu |
 | `Alt + Tab` | Interactive window switcher (`fzf`) |
 | `Super + H/J/K/L` | Vim window focus (Left / Down / Up / Right) |
-| `Super + X / C` | Cycle window focus Left / Right |
-| `Super + Shift + Arrows` | Move window position |
+| `Super + Arrows` | Move window focus |
 | `Print` | Interactive screenshot capture & editor (Satty) |
 | `Super + F` | File Manager (Nautilus) |
 | `Super + B` | System Browser |

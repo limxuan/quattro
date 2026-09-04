@@ -40,3 +40,8 @@ o.window("float-paste", {
   center = true,
   size = "750 550",
 })
+
+o.window("float-paste-image", {
+  float = true,
+  center = true,
+})

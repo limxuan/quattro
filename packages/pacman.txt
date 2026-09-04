@@ -20,3 +20,4 @@ make
 gcc
 wl-clipboard
 satty
+wiremix

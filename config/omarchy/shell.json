@@ -5,8 +5,8 @@
     "lock": 300
   },
   "bar": {
-    "position": "top",
-    "transparent": true,
+    "position": "left",
+    "transparent": false,
     "centerAnchor": "omarchy.clock",
     "layout": {
       "left": [
@@ -22,13 +22,13 @@
           "id": "omarchy.indicators"
         },
         {
-          "id": "omarchy.keyboard-layout"
-        },
-        {
           "id": "omarchy.clock",
           "format": "dddd HH:mm",
           "formatAlt": "d MMMM 'W'ww yyyy",
-          "verticalFormat": "h\n—\nmm\nAP"
+          "verticalFormat": "HH\n—\nmm"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
         },
         {
           "id": "omarchy.weather"
@@ -42,7 +42,7 @@
           "id": "omarchy.tray"
         },
         {
-          "id": "omarchy.tailscale"
+          "id": "omarchy.agents"
         },
         {
           "id": "omarchy.bluetooth"
@@ -57,8 +57,7 @@
           "id": "omarchy.monitor"
         },
         {
-          "id": "omarchy.power",
-          "showPercentage": true
+          "id": "omarchy.power"
         }
       ]
     }
