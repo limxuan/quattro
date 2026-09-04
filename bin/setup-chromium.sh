@@ -5,40 +5,26 @@ echo "[+] Setting up Chromium extensions policy and browser defaults..."
 
 # 1. Configure Chromium Enterprise Policy for Extensions
 echo "[+] Configuring Chromium managed extensions policy..."
-mkdir -p /etc/chromium/policies/managed 2>/dev/null || true
 
-python3 << 'EOF'
-import json, os
-
-policy = {
-    "ExtensionInstallForcelist": [
-        "mnjggcdmjocbbbhaepdhchncahnbgone;https://clients2.google.com/service/update2/crx",  # SponsorBlock
-        "hfjbmagddngcpeloejdejnfgbamkjaeg;https://clients2.google.com/service/update2/crx",  # Vimium C
-        "eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx",  # Dark Reader
-        "gcknhkkoolaabfmlnjonogaaifnjlfnp;https://clients2.google.com/service/update2/crx",  # FoxyProxy
-        "nngceckbapebfimnlniiiahkandclblb;https://clients2.google.com/service/update2/crx",  # Bitwarden
-        "fipfgiejfpcdacpjepkohdlnjonchnal;https://clients2.google.com/service/update2/crx"   # Manage Tabs
-    ]
+cat << 'EOF' > /tmp/chromium_extensions.json
+{
+  "ExtensionInstallForcelist": [
+    "mnjggcdmjocbbbhaepdhchncahnbgone;https://clients2.google.com/service/update2/crx",
+    "hfjbmagddngcpeloejdejnfgbamkjaeg;https://clients2.google.com/service/update2/crx",
+    "eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx",
+    "gcknhkkoolaabfmlnjonogaaifnjlfnp;https://clients2.google.com/service/update2/crx",
+    "nngceckbapebfimnlniiiahkandclblb;https://clients2.google.com/service/update2/crx",
+    "fipfgiejfpcdacpjepkohdlnjonchnal;https://clients2.google.com/service/update2/crx"
+  ]
 }
-
-target_dirs = [
-    "/etc/chromium/policies/managed",
-    "/etc/opt/chrome/policies/managed"
-]
-
-for d in target_dirs:
-    try:
-        os.makedirs(d, exist_ok=True)
-        path = os.path.join(d, "chromium_extensions.json")
-        with open(path, "w") as f:
-            json.dump(policy, f, indent=2)
-        print(f"    Wrote extension policy to {path}")
-    except Exception as e:
-        print(f"    Notice: could not write to {d} ({e})")
 EOF
 
+sudo install -Dm644 /tmp/chromium_extensions.json /etc/chromium/policies/managed/chromium_extensions.json
+sudo install -Dm644 /tmp/chromium_extensions.json /etc/opt/chrome/policies/managed/chromium_extensions.json
+rm -f /tmp/chromium_extensions.json
+
 # Clean up old policy files if present
-rm -f /etc/chromium/policies/managed/helium_extensions.json 2>/dev/null || true
+sudo rm -f /etc/chromium/policies/managed/helium_extensions.json 2>/dev/null || true
 
 # 2. Set Chromium as the default browser and web handler
 if command -v xdg-settings &>/dev/null; then
