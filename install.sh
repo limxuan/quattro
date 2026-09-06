@@ -28,13 +28,30 @@ if [ -f "$DOTFILES_DIR/packages/aur.txt" ]; then
     yay -S --needed --noconfirm --answerclean None --answerdiff None - < "$DOTFILES_DIR/packages/aur.txt" || true
 fi
 
-# 3. Setup Keyd and libinput quirks
-echo "[3/6] Setting up Keyd and hardware quirks..."
+# 3. Setup Keyd, hardware quirks, and bootloader
+echo "[3/6] Setting up Keyd, hardware quirks, and bootloader..."
 sudo mkdir -p /etc/keyd /etc/libinput
 sudo cp "$DOTFILES_DIR/etc/keyd/default.conf" /etc/keyd/default.conf
 sudo cp "$DOTFILES_DIR/etc/libinput/local-overrides.quirks" /etc/libinput/local-overrides.quirks
 sudo systemctl enable --now keyd.service
 sudo systemctl restart keyd.service || true
+
+# Configure Limine bootloader to wait indefinitely for user selection
+echo "[+] Configuring Limine bootloader to wait indefinitely..."
+for limine_file in /boot/limine.conf /boot/limine.cfg /boot/limine/limine.conf /boot/limine/limine.cfg /efi/limine.conf /efi/limine.cfg; do
+    if sudo test -f "$limine_file"; then
+        echo "[+] Setting timeout: no in $limine_file..."
+        if sudo grep -q -E '^[#[:space:]]*timeout:' "$limine_file"; then
+            sudo sed -i -E 's/^[#[:space:]]*timeout:.*/timeout: no/' "$limine_file"
+        else
+            sudo sed -i '1s/^/timeout: no\n/' "$limine_file"
+        fi
+    fi
+done
+
+if sudo test -f /usr/share/omarchy/default/limine/limine.conf; then
+    sudo sed -i -E 's/^[#[:space:]]*timeout:.*/timeout: no/' /usr/share/omarchy/default/limine/limine.conf 2>/dev/null || true
+fi
 
 # 4. Install Sesh terminal assistant
 if ! command -v sesh &>/dev/null; then

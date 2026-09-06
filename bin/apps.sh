@@ -19,7 +19,7 @@ tui_apps=(
 )
 
 omarchy_shortcuts=(
-  "bluetooth|bluetooth|omarchy-launch-bluetooth||Settings;Hardware;"
-  "sound|sound|omarchy-launch-or-focus-tui wiremix||Settings;"
-  "wifi|wifi|omarchy-launch-wifi||Network;"
+  "bluetooth|Bluetooth|bluetooth|omarchy-shell shell toggle omarchy.bluetooth|Bluetooth Settings|Settings;Hardware;|bluetooth;bt;wireless;"
+  "sound|Sound|audio-volume-high|omarchy-launch-or-focus-tui wiremix|Audio Mixer (Wiremix)|Settings;Audio;|sound;audio;volume;mixer;wiremix;"
+  "wifi|Wi-Fi|network-wireless|omarchy-shell shell toggle omarchy.network|Wi-Fi and Network Settings|Settings;Network;|wifi;wi-fi;network;internet;wireless;ssid;wlan;"
 )

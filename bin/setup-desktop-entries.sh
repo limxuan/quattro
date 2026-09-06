@@ -43,7 +43,33 @@ EOF
   done
 fi
 
-# 2. Bitwarden Autostart & Desktop entry
+# 2. Omarchy Shortcuts
+if (( ${#omarchy_shortcuts[@]} > 0 )); then
+  echo "[+] Installing Omarchy shortcut desktop entries..."
+
+  for entry in "${omarchy_shortcuts[@]}"; do
+    IFS='|' read -r id name icon exec_cmd comment categories keywords <<< "$entry"
+    echo "    $name"
+
+    desktop_file="$DESKTOP_DIR/${id:-$name}.desktop"
+    cat > "$desktop_file" << EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=$name
+Exec=$exec_cmd
+Terminal=false
+StartupNotify=false
+EOF
+    [[ -n "$icon" ]] && echo "Icon=$icon" >> "$desktop_file"
+    [[ -n "$comment" ]] && echo "Comment=$comment" >> "$desktop_file"
+    [[ -n "$categories" ]] && echo "Categories=$categories" >> "$desktop_file"
+    [[ -n "$keywords" ]] && echo "Keywords=$keywords" >> "$desktop_file"
+    chmod +x "$desktop_file"
+  done
+fi
+
+# 3. Bitwarden Autostart & Desktop entry
 mkdir -p "$HOME/.config/autostart"
 cat > "$HOME/.config/autostart/bitwarden.desktop" << 'EOF'
 [Desktop Entry]
