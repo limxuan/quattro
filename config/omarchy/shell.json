@@ -12,12 +12,12 @@
       "left": [
         {
           "id": "omarchy.menu"
-        },
-        {
-          "id": "omarchy.workspaces"
         }
       ],
       "center": [
+        {
+          "id": "omarchy.workspaces"
+        },
         {
           "id": "omarchy.indicators"
         },

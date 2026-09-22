@@ -37,8 +37,8 @@ Safely symlinks all dotfiles to `~/.config/` and creates timestamped `.bak` copi
   - **Kitty**: Styled with Kanagawa Dragon color scheme and JetBrainsMono Nerd Font.
   - **Bash + ble.sh**: Real-time syntax highlighting, fish-like autosuggestions, and fuzzy history search.
   - **Starship Prompt**: Fast, minimalist git-aware status prompt.
-  - **Shell Shortcuts**: `Ctrl+G` (edit current command line in Neovim), `Ctrl+S` (smart tmux attach/new).
-- **Neovim**: Blazing fast configuration bootstrapped with `lazy.nvim`, `oil.nvim` (file manager), `telescope.nvim` (fuzzy find files & text), and `kanagawa.nvim`.
+  - **Shell Shortcuts**: `Ctrl+G` (edit current command line in Neovim), `Ctrl+N` (open Neovim in current directory), `Ctrl+S` (smart tmux attach/new).
+- **Neovim**: Blazing fast configuration bootstrapped with `lazy.nvim`, `oil.nvim` (file manager), `telescope.nvim` (fuzzy find files & text), `harpoon` (quick file marks & navigation), and `kanagawa.nvim`.
 - **Tmux + Sesh**: Smart workspace-based session management (`open_ws`, `trs` reset), Vi copy mode, and `sesh` fuzzy session switcher.
 - **AI Voice Dictation**: Hands-free voice-to-text powered by Groq Cloud (`whisper-large-v3`) via `Caps + E`.
 - **Desktop & Web Apps**: Declarative webapp installer (`bin/apps.sh`), automatic Chromium extension policy manager, and Bitwarden integration.
@@ -55,6 +55,7 @@ Safely symlinks all dotfiles to `~/.config/` and creates timestamped `.bak` copi
 | `Caps + Shift + 1..9` | Move window to Workspace 1–9 |
 | `Caps + W` | Close active window |
 | `Caps + X` | Switch to Workspace 6 |
+| `Caps + C` / `V` | Focus window Left / Right |
 | `Caps + R` / `Shift+R` | Toggle / Move window to scratchpad |
 | `Caps + E` | Toggle Groq AI voice dictation |
 | `Caps + B` | Toggle laptop trackpad |

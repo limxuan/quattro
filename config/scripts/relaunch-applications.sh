@@ -113,6 +113,9 @@ jq -c '.[]' "$STATE_FILE" | while read -r window; do
             "brave-browser"|"Brave-browser")
                 launch_cmd="brave"
                 ;;
+            "org.gnome.Boxes"|"gnome-boxes"|"Boxes")
+                launch_cmd="gnome-boxes"
+                ;;
             *)
                 launch_cmd="${class,,}"
                 ;;

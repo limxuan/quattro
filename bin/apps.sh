@@ -20,6 +20,7 @@ tui_apps=(
 
 omarchy_shortcuts=(
   "bluetooth|Bluetooth|bluetooth|omarchy-shell shell toggle omarchy.bluetooth|Bluetooth Settings|Settings;Hardware;|bluetooth;bt;wireless;"
+  "screenshot-editor|Screenshot Editor (Satty)|satty|$HOME/.config/scripts/edit-clipboard-with-satty.sh|Edit and annotate screenshot with Satty|Utility;|screenshot;satty;annotate;markup;editor;image;snip;"
   "sound|Sound|audio-volume-high|omarchy-launch-or-focus-tui wiremix|Audio Mixer (Wiremix)|Settings;Audio;|sound;audio;volume;mixer;wiremix;"
   "wifi|Wi-Fi|network-wireless|omarchy-shell shell toggle omarchy.network|Wi-Fi and Network Settings|Settings;Network;|wifi;wi-fi;network;internet;wireless;ssid;wlan;"
 )

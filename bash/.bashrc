@@ -30,12 +30,18 @@ alias trs=tmux_reset
 # Keybindings
 # Ctrl+G: edit current command line in nvim (no auto-execute)
 __edit_command_line() {
-    echo "$READLINE_LINE" > /tmp/bash_cmd_edit
+    printf '%s' "$READLINE_LINE" > /tmp/bash_cmd_edit
     nvim /tmp/bash_cmd_edit
     READLINE_LINE=$(cat /tmp/bash_cmd_edit)
     READLINE_POINT=${#READLINE_LINE}
 }
 bind -x '"\C-g": __edit_command_line'
+
+# Ctrl+N: open neovim in current directory
+open_nvim() {
+    nvim .
+}
+bind -x '"\C-n": open_nvim'
 
 # Ctrl+S: attach or create tmux session
 __check_tmux() {
@@ -89,5 +95,15 @@ tmux_reset() {
     echo "Tmux reset complete: now in session '$folder_name', focused on the first window."
 }
 
-# Attach ble.sh at the very end
-[[ ${BLE_VERSION-} ]] && ble-attach
+# Attach ble.sh at the very end and register interactive keybindings
+if [[ ${BLE_VERSION-} ]]; then
+    ble-attach
+    ble-bind -m emacs -x 'C-g' '__edit_command_line'
+    ble-bind -m vi_imap -x 'C-g' '__edit_command_line'
+    ble-bind -m emacs -x 'C-n' 'open_nvim'
+    ble-bind -m vi_imap -x 'C-n' 'open_nvim'
+    ble-bind -m emacs -x 'C-s' '__check_tmux'
+    ble-bind -m vi_imap -x 'C-s' '__check_tmux'
+fi
+
+. "$HOME/.local/share/../bin/env"

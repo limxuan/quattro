@@ -18,7 +18,9 @@ if (( ${#webapps[@]} > 0 )); then
     echo "    $name"
 
     local_icon="$ICON_DIR/$name.png"
-    curl -fsSL -o "$local_icon" "$icon_url" 2>/dev/null || true
+    if [[ ! -s $local_icon ]]; then
+      curl -fsSL -o "$local_icon" "$icon_url" 2>/dev/null || true
+    fi
 
     if command -v omarchy-webapp-install &>/dev/null; then
       if [[ -s $local_icon ]]; then

@@ -106,6 +106,8 @@ o.bind("ALT + SHIFT + 0", "Move window to workspace 10", hl.dsp.window.move({ wo
 
 o.bind("CTRL + ALT + SHIFT + W", "Close active window", hl.dsp.window.close())
 o.bind("CTRL + ALT + SHIFT + X", "Switch to workspace 6", hl.dsp.focus({ workspace = "6" }))
+o.bind("CTRL + ALT + SHIFT + C", "Focus left", hl.dsp.focus({ direction = "l" }))
+o.bind("CTRL + ALT + SHIFT + V", "Focus right", hl.dsp.focus({ direction = "r" }))
 o.bind("CTRL + ALT + SHIFT + R", "Toggle scratchpad", hl.dsp.workspace.toggle_special("scratchpad"))
 o.bind("SHIFT + ALT + R", "Move window to scratchpad", hl.dsp.window.move({ workspace = "special:scratchpad", follow = false }))
 
@@ -121,21 +123,7 @@ o.bind("CTRL + ALT + SHIFT + B", "Toggle Trackpad", "~/.config/scripts/toggle-tr
 o.bind("CTRL + ALT + SHIFT + E", "Toggle Voice Dictation", "~/.config/scripts/groq-dictate.sh")
 o.bind("ALT + SHIFT + X", "Move all windows to primary", "~/.config/scripts/move-all-windows-to-primary-monitor.sh")
 
--- Shortcut chords for copy/paste/select-all
-o.bind("CTRL + ALT + SHIFT + C", "Copy shortcut", function()
-  hl.dispatch(hl.dsp.send_key_state({ mods = "CTRL", key = "Insert", state = "down" }))
-  hl.timer(function()
-    hl.dispatch(hl.dsp.send_key_state({ mods = "CTRL", key = "Insert", state = "up" }))
-  end, { timeout = 50, type = "oneshot" })
-end)
-
-o.bind("CTRL + ALT + SHIFT + V", "Paste shortcut", function()
-  hl.dispatch(hl.dsp.send_key_state({ mods = "SHIFT", key = "Insert", state = "down" }))
-  hl.timer(function()
-    hl.dispatch(hl.dsp.send_key_state({ mods = "SHIFT", key = "Insert", state = "up" }))
-  end, { timeout = 50, type = "oneshot" })
-end)
-
+-- Shortcut chords
 o.bind("CTRL + ALT + SHIFT + A", "Select all shortcut", function()
   hl.dispatch(hl.dsp.send_key_state({ mods = "CTRL", key = "a", state = "down" }))
   hl.timer(function()
