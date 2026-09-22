@@ -22,6 +22,7 @@ vim.keymap.set({"n", "v"}, "gl", "$", { desc = "Go to end of line" })
 vim.keymap.set("n", "<leader>va", "ggVG", { desc = "Select all" })
 vim.keymap.set("n", "<leader>l", "<CMD>set list!<CR>", { desc = "Toggle invisible characters" })
 vim.keymap.set({"n", "v", "i"}, "<C-q>", "<CMD>qa<CR>", { desc = "Quit Neovim" })
+vim.keymap.set({"n", "v"}, "<leader>w", "<CMD>w<CR>", { desc = "Save file" })
 
 -- Clipboard keymaps
 vim.keymap.set({"n", "v"}, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
