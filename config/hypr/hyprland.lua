@@ -30,6 +30,8 @@ o.window("^(chrome-chatgpt\\.com.*|chrome-claude\\.ai.*)$", { workspace = "3" })
 o.window("^(chrome-web\\.telegram\\.org.*|org\\.telegram\\.desktop|chrome-web\\.whatsapp\\.com.*|chrome-discord\\.com.*|chrome-teams\\.microsoft\\.com.*|com\\.github\\.IsmaelMartinez\\.teams_for_linux)$", { workspace = "5" })
 o.window("org.gnome.Boxes", { workspace = "6" })
 
+o.window({ fullscreen = true }, { border_color = "rgba(DD0000FF)" })
+
 o.window("float-window", {
   float = true,
   center = true,
