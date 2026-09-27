@@ -13,6 +13,7 @@ require("default.hypr.omarchy")
 -- Put your personal overrides in these files. They're loaded after Omarchy's defaults.
 require("hypr.monitors")
 require("hypr.input")
+require("hypr.mouse")
 require("hypr.bindings")
 require("hypr.looknfeel")
 require("hypr.autostart")

@@ -18,7 +18,7 @@ Clean, declarative, and reproducible Arch Linux dotfiles built around **Omarchy 
    bash install.sh
    ```
 
-`install.sh` automatically installs Pacman/AUR packages, configures Keyd and libinput hardware quirks, sets up `ble.sh`/`tpm`/`sesh`, deploys webapps, and links all configurations.
+`install.sh` automatically installs Pacman/AUR packages, configures Keyd and libinput hardware quirks, sets up `ble.sh`/`tpm`/`sesh`, installs the Omarchy shell plugins listed in `packages/omarchy-plugins.txt`, deploys webapps, and links all configurations.
 
 ### Sync Existing Configs
 ```bash
@@ -32,6 +32,7 @@ Safely symlinks all dotfiles to `~/.config/` and creates timestamped `.bak` copi
 
 - **Hyprland (Lua-driven)**: Modular Omarchy 4.0 configuration (`bindings.lua`, `monitors.lua`, `looknfeel.lua`, `input.lua`, `autostart.lua`). Supports switching between dwindle and scrolling layouts on the fly.
 - **Quickshell Bar**: Configured via `config/omarchy/shell.json` with system monitors, Tailscale status, battery indicators, media, and notification tray.
+- **Mouse Panel Plugin**: Third-party [`io.github.wouldja.mouse`](https://github.com/wouldja/omarchy-mouse) bar widget for pointer speed, acceleration, scrolling, primary button, and touchpad controls. Bar position lives in `shell.json`; the panel's values are written to `config/hypr/mouse.lua`. Add more plugin URLs to `packages/omarchy-plugins.txt` and re-run `install.sh`.
 - **Keyd Keyboard Remap**: CapsLock mapped to `overload(meh, esc)` (`Meh = Ctrl+Alt+Shift` on hold, `Escape` on tap). Includes vim navigation (`H/J/K/L`), line deletion macros, and one-shot Shift.
 - **Terminal & Shell**:
   - **Kitty**: Styled with Kanagawa Dragon color scheme and JetBrainsMono Nerd Font.
@@ -103,7 +104,7 @@ Safely symlinks all dotfiles to `~/.config/` and creates timestamped `.bak` copi
 ├── etc/
 │   ├── keyd/           # Keyd layout configuration
 │   └── libinput/       # Libinput quirk overrides
-├── packages/           # Pacman and AUR explicit package manifests
+├── packages/           # Pacman, AUR, and Omarchy shell plugin manifests
 ├── install.sh          # Full automated environment bootstrap script
 └── sync.sh             # Symlink deployment script with backup protection
 ```

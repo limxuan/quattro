@@ -83,6 +83,30 @@ fi
 echo "[5/6] Linking dotfiles configurations..."
 bash "$DOTFILES_DIR/sync.sh"
 
+# Must run after sync.sh: on a fresh system ~/.config/omarchy is a real directory
+# that sync.sh moves aside, so a plugin cloned before this would be orphaned.
+if command -v omarchy &>/dev/null && [ -f "$DOTFILES_DIR/packages/omarchy-plugins.txt" ]; then
+    echo "[+] Installing Omarchy shell plugins..."
+    while read -r url; do
+        [[ -z "$url" || "$url" == \#* ]] && continue
+        installed=no
+        for dir in "$DOTFILES_DIR/config/omarchy/plugins"/*/; do
+            [[ -d "$dir/.git" ]] || continue
+            if [[ "$(git -C "$dir" remote get-url origin 2>/dev/null)" == "$url" ]]; then
+                installed=yes
+                break
+            fi
+        done
+        # --yes keeps this non-interactive; bar placement comes from
+        # config/omarchy/shell.json, not from this command.
+        if [[ $installed == yes ]]; then
+            echo "  [i] $url already installed"
+        else
+            omarchy plugin add "$url" --enable --yes
+        fi
+    done < "$DOTFILES_DIR/packages/omarchy-plugins.txt"
+fi
+
 # 7. Setup desktop entries and webapps
 echo "[6/6] Setting up desktop entries and web apps..."
 bash "$DOTFILES_DIR/bin/setup-desktop-entries.sh"

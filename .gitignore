@@ -2,3 +2,8 @@
 *.log
 .DS_Store
 config/omarchy/themes/
+
+# Third-party omarchy plugins stay untracked so each install is a real git
+# clone (omarchy plugin update fetches into them). packages/omarchy-plugins.txt
+# plus install.sh recreate them.
+config/omarchy/plugins/
